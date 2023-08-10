@@ -6,24 +6,35 @@ import {
   useState,
 } from "react";
 import styles from "./index.module.scss";
+import { formateFileInfo } from "./utils";
+import { FileType } from "./types";
 
 export default function UploadExcel() {
-  const [value, setValue] = useState();
-  const [displayName, setDisplayName] = useState<string>("上传 Excel 原件");
+  const [value, setValue] = useState<FileType>();
+  const [displayName, setDisplayName] =
+    useState<string>("添加/拖入 Excel 原件");
 
   useEffect(() => {
     document.addEventListener("drop", (event) => event.preventDefault());
     document.addEventListener("dragover", (event) => event.preventDefault());
   }, []);
 
+  const fileExe = (file: FileType) => {
+    const { name, extension } = file;
+    if (extension === "xlsm") {
+      name && setDisplayName(name);
+      setValue(file);
+    }
+  };
+
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const fileName = event.target.files?.[0].name;
-    fileName && setDisplayName(fileName);
+    const file = formateFileInfo(event.target.files?.[0]);
+    fileExe(file);
   };
 
   const onDrop: DragEventHandler<HTMLLabelElement> = (event) => {
-    const fileName = event.dataTransfer.files?.[0].name;
-    fileName && setDisplayName(fileName);
+    const file = formateFileInfo(event.dataTransfer.files?.[0]);
+    fileExe(file);
   };
 
   return (
@@ -39,7 +50,6 @@ export default function UploadExcel() {
         id="excelFile"
         className={styles["excel-file"]}
         type="file"
-        value={value}
         onChange={onChange}
       />
     </div>
