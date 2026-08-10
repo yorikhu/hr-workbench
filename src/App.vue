@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import MainLayout from '@/layouts/MainLayout.vue'
 import AdminLayout from '@/layouts/AdminLayout.vue'
 import SimpleLayout from '@/layouts/SimpleLayout.vue'
+import PortalLayout from '@/layouts/PortalLayout.vue'
 
 const route = useRoute()
 
@@ -16,6 +17,8 @@ const layout = computed(() => {
       return MainLayout
     case 'admin':
       return AdminLayout
+    case 'portal':
+      return PortalLayout
     case 'simple':
     default:
       return SimpleLayout

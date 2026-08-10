@@ -53,7 +53,6 @@ import { ElMessage } from 'element-plus'
 
 <style scoped lang="scss">
 .about-container {
-  max-width: 1000px;
   margin: 40px auto;
   padding: 0 24px;
 

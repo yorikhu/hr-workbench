@@ -144,6 +144,13 @@ const toggleCollapse = () => {
   .sidebar {
     background: #001529;
     transition: width 0.3s;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 100;
 
     :deep(.el-menu) {
       border-right: none;
@@ -183,6 +190,9 @@ const toggleCollapse = () => {
     background: #fff;
     border-bottom: 1px solid #f0f0f0;
     padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 
     .header-left {
       display: flex;
@@ -218,6 +228,14 @@ const toggleCollapse = () => {
     background: #f0f2f5;
     padding: 20px;
     overflow-y: auto;
+  }
+
+  // 给右侧内容区域添加左边距，避免被固定的侧边栏遮挡
+  :deep(.el-container) {
+    &:not(.main-layout) {
+      margin-left: 200px;
+      transition: margin-left 0.3s;
+    }
   }
 }
 </style>

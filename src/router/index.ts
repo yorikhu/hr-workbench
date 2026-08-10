@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
 // 定义 Layout 类型
-type LayoutType = 'main' | 'admin' | 'simple'
+type LayoutType = 'main' | 'admin' | 'simple' | 'portal'
 
 // 扩展 RouteMeta 类型
 declare module 'vue-router' {
@@ -15,12 +15,6 @@ declare module 'vue-router' {
 // 简单布局路由 - 登录、首页、关于等
 const simpleRoutes: RouteRecordRaw[] = [
   {
-    path: '/',
-    name: 'home',
-    component: () => import('@/views/HomeView.vue'),
-    meta: { title: '首页', layout: 'simple' },
-  },
-  {
     path: '/about',
     name: 'about',
     component: () => import('@/views/AboutView.vue'),
@@ -31,6 +25,16 @@ const simpleRoutes: RouteRecordRaw[] = [
     name: 'login',
     component: () => import('@/views/LoginView.vue'),
     meta: { title: '登录', layout: 'simple' },
+  },
+]
+
+// 门户布局路由 - 主页
+const portalRoutes: RouteRecordRaw[] = [
+  {
+    path: '/',
+    name: 'portal',
+    component: () => import('@/views/HomeView.vue'),
+    meta: { title: 'HR 工作台', layout: 'portal' },
   },
 ]
 
@@ -104,6 +108,118 @@ const documentsRoutes: RouteRecordRaw = {
   ],
 }
 
+// 异动管理路由
+const transfersRoutes: RouteRecordRaw = {
+  path: '/transfers',
+  name: 'transfers',
+  component: () => import('@/layouts/MainLayout.vue'),
+  meta: { layout: 'main' },
+  children: [
+    {
+      path: '',
+      name: 'transfers-list',
+      component: () => import('@/views/transfers/TransfersView.vue'),
+      meta: { title: '异动管理' },
+    },
+  ],
+}
+
+// 福利管理路由
+const benefitsRoutes: RouteRecordRaw = {
+  path: '/benefits',
+  name: 'benefits',
+  component: () => import('@/layouts/MainLayout.vue'),
+  meta: { layout: 'main' },
+  children: [
+    {
+      path: '',
+      name: 'benefits-list',
+      component: () => import('@/views/benefits/BenefitsView.vue'),
+      meta: { title: '福利管理' },
+    },
+  ],
+}
+
+// 薪酬核算路由
+const salaryRoutes: RouteRecordRaw = {
+  path: '/salary',
+  name: 'salary',
+  component: () => import('@/layouts/MainLayout.vue'),
+  meta: { layout: 'main' },
+  children: [
+    {
+      path: '',
+      name: 'salary-list',
+      component: () => import('@/views/salary/SalaryView.vue'),
+      meta: { title: '薪酬核算' },
+    },
+  ],
+}
+
+// 招聘管理路由
+const recruitmentRoutes: RouteRecordRaw = {
+  path: '/recruitment',
+  name: 'recruitment',
+  component: () => import('@/layouts/MainLayout.vue'),
+  meta: { layout: 'main' },
+  children: [
+    {
+      path: '',
+      name: 'recruitment-list',
+      component: () => import('@/views/recruitment/RecruitmentView.vue'),
+      meta: { title: '招聘管理' },
+    },
+  ],
+}
+
+// 考勤管理路由
+const attendanceRoutes: RouteRecordRaw = {
+  path: '/attendance',
+  name: 'attendance',
+  component: () => import('@/layouts/MainLayout.vue'),
+  meta: { layout: 'main' },
+  children: [
+    {
+      path: '',
+      name: 'attendance-list',
+      component: () => import('@/views/attendance/AttendanceView.vue'),
+      meta: { title: '考勤管理' },
+    },
+  ],
+}
+
+// 绩效人才路由
+const performanceRoutes: RouteRecordRaw = {
+  path: '/performance',
+  name: 'performance',
+  component: () => import('@/layouts/MainLayout.vue'),
+  meta: { layout: 'main' },
+  children: [
+    {
+      path: '',
+      name: 'performance-list',
+      component: () => import('@/views/performance/PerformanceView.vue'),
+      meta: { title: '绩效人才' },
+    },
+  ],
+}
+
+// 培训发展路由
+const trainingRoutes: RouteRecordRaw = {
+  path: '/training',
+  name: 'training',
+  component: () => import('@/layouts/MainLayout.vue'),
+  meta: { layout: 'main' },
+  children: [
+    {
+      path: '',
+      name: 'training-list',
+      component: () => import('@/views/training/TrainingView.vue'),
+      meta: { title: '培训发展' },
+    },
+  ],
+}
+
 // 管理后台布局路由 - /admin/*
 const adminRoutes: RouteRecordRaw = {
   path: '/admin',
@@ -140,10 +256,18 @@ const adminRoutes: RouteRecordRaw = {
 
 // 合并所有路由
 const routes: RouteRecordRaw[] = [
+  ...portalRoutes,
   ...simpleRoutes,
   mainRoutes,
   employeesRoutes,
   documentsRoutes,
+  transfersRoutes,
+  benefitsRoutes,
+  salaryRoutes,
+  recruitmentRoutes,
+  attendanceRoutes,
+  performanceRoutes,
+  trainingRoutes,
   adminRoutes,
   // 404 路由
   {
