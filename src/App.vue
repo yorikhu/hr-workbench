@@ -1,11 +1,43 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
-import AppHeader from '@/components/AppHeader.vue'
+import { computed, defineComponent } from 'vue'
+import { useRoute } from 'vue-router'
+import MainLayout from '@/layouts/MainLayout.vue'
+import AdminLayout from '@/layouts/AdminLayout.vue'
+import SimpleLayout from '@/layouts/SimpleLayout.vue'
+
+const route = useRoute()
+
+// 根据路由 meta 动态渲染对应的 Layout
+const layout = computed(() => {
+  const layoutType = route.meta.layout || 'simple'
+
+  switch (layoutType) {
+    case 'main':
+      return MainLayout
+    case 'admin':
+      return AdminLayout
+    case 'simple':
+    default:
+      return SimpleLayout
+  }
+})
 </script>
 
 <template>
-  <AppHeader />
-  <RouterView />
+  <component :is="layout" />
 </template>
 
-<style scoped></style>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+</style>
