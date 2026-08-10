@@ -39,10 +39,15 @@ const handleModuleClick = (moduleRoute: string) => {
           />
         </div>
         <div class="header-right">
-          <el-button class="icon-btn" :icon="Bell" circle>
+          <div class="icon-btn-wrapper">
+            <el-button class="icon-btn" circle>
+              <el-icon><Bell /></el-icon>
+            </el-button>
             <span class="badge-dot"></span>
+          </div>
+          <el-button class="icon-btn" circle>
+            <el-icon><Setting /></el-icon>
           </el-button>
-          <el-button class="icon-btn" :icon="Setting" circle />
           <div class="user-info">
             <div class="avatar">{{ userInfo.avatar }}</div>
             <div class="user-detail">
@@ -192,27 +197,37 @@ const handleModuleClick = (moduleRoute: string) => {
     align-items: center;
     gap: 12px;
 
+    .icon-btn-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
     .icon-btn {
       border: none;
       background: transparent;
-      color: #6b7280;
-      position: relative;
+      color: #4b5563;
+      font-weight: 600;
+      font-size: 16px;
 
       &:hover {
         background: #f3f4f6;
-        color: #374151;
+        color: #1f2937;
       }
 
-      .badge-dot {
-        position: absolute;
-        top: 6px;
-        right: 6px;
-        width: 6px;
-        height: 6px;
-        background: #ef4444;
-        border-radius: 50%;
-        border: 2px solid #fff;
+      .el-icon {
+        font-size: 16px;
       }
+    }
+
+    .badge-dot {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 6px;
+      height: 6px;
+      background: #ef4444;
+      border-radius: 50%;
+      pointer-events: none;
     }
 
     .user-info {
