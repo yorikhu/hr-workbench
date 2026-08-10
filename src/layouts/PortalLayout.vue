@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { Bell, Setting, Search, ArrowRight } from '@element-plus/icons-vue'
+import { Bell, Setting, Search } from '@element-plus/icons-vue'
 import { portalModules, userInfo } from '@/mock/portalData'
 import AppIcon from '@/components/icons/AppIcon.vue'
 
