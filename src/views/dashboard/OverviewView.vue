@@ -4,17 +4,49 @@ import { TrendCharts, User, Document, DataLine } from '@element-plus/icons-vue'
 
 // 模拟数据
 const stats = ref([
-  { title: '员工总数', value: 1248, icon: User, color: '#409eff', trend: '+12%' },
-  { title: '部门数量', value: 24, icon: TrendCharts, color: '#67c23a', trend: '+3%' },
-  { title: '文档数量', value: 356, icon: Document, color: '#e6a23c', trend: '+8%' },
-  { title: '本月考勤', value: '98.5%', icon: DataLine, color: '#f56c6c', trend: '+2%' }
+  {
+    title: '员工总数',
+    value: 1248,
+    icon: User,
+    color: '#409eff',
+    trend: '+12%',
+  },
+  {
+    title: '部门数量',
+    value: 24,
+    icon: TrendCharts,
+    color: '#67c23a',
+    trend: '+3%',
+  },
+  {
+    title: '文档数量',
+    value: 356,
+    icon: Document,
+    color: '#e6a23c',
+    trend: '+8%',
+  },
+  {
+    title: '本月考勤',
+    value: '98.5%',
+    icon: DataLine,
+    color: '#f56c6c',
+    trend: '+2%',
+  },
 ])
 
 const activities = ref([
   { time: '2024-01-15 09:30', content: '张三提交了请假申请', type: 'primary' },
-  { time: '2024-01-15 10:15', content: '新员工李四入职手续完成', type: 'success' },
+  {
+    time: '2024-01-15 10:15',
+    content: '新员工李四入职手续完成',
+    type: 'success',
+  },
   { time: '2024-01-15 11:00', content: '技术部门周报已提交', type: 'info' },
-  { time: '2024-01-15 14:20', content: '王五的考勤异常已处理', type: 'warning' }
+  {
+    time: '2024-01-15 14:20',
+    content: '王五的考勤异常已处理',
+    type: 'warning',
+  },
 ])
 </script>
 

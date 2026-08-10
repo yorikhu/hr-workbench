@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { Home, Document, User } from '@element-plus/icons-vue'
+import { House, Document, User } from '@element-plus/icons-vue'
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import { Home, Document, User } from '@element-plus/icons-vue'
         </div>
         <div class="nav-menu">
           <RouterLink to="/" class="nav-link">
-            <el-icon><Home /></el-icon>
+            <el-icon><House /></el-icon>
             <span>首页</span>
           </RouterLink>
           <RouterLink to="/about" class="nav-link">

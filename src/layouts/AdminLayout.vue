@@ -9,7 +9,7 @@ import {
   DataLine,
   Fold,
   Expand,
-  Bell
+  Bell,
 } from '@element-plus/icons-vue'
 
 const router = useRouter()
@@ -23,8 +23,8 @@ const menuItems = ref([
     icon: UserFilled,
     children: [
       { index: '/admin/users/list', title: '用户列表' },
-      { index: '/admin/users/roles', title: '角色权限' }
-    ]
+      { index: '/admin/users/roles', title: '角色权限' },
+    ],
   },
   {
     index: '/admin/system',
@@ -33,8 +33,8 @@ const menuItems = ref([
     children: [
       { index: '/admin/system/config', title: '系统配置' },
       { index: '/admin/system/logs', title: '操作日志' },
-      { index: '/admin/system/security', title: '安全设置' }
-    ]
+      { index: '/admin/system/security', title: '安全设置' },
+    ],
   },
   {
     index: '/admin/monitor',
@@ -42,8 +42,8 @@ const menuItems = ref([
     icon: Monitor,
     children: [
       { index: '/admin/monitor/performance', title: '性能监控' },
-      { index: '/admin/monitor/api', title: 'API 监控' }
-    ]
+      { index: '/admin/monitor/api', title: 'API 监控' },
+    ],
   },
   {
     index: '/admin/data',
@@ -51,9 +51,9 @@ const menuItems = ref([
     icon: DataLine,
     children: [
       { index: '/admin/data/backup', title: '数据备份' },
-      { index: '/admin/data/import', title: '数据导入' }
-    ]
-  }
+      { index: '/admin/data/import', title: '数据导入' },
+    ],
+  },
 ])
 
 const handleMenuSelect = (index: string) => {
@@ -112,7 +112,9 @@ const toggleCollapse = () => {
             <span>管理后台</span>
           </div>
           <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/admin' }">管理首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/admin' }"
+              >管理首页</el-breadcrumb-item
+            >
             <el-breadcrumb-item v-if="$route.meta.title">
               {{ $route.meta.title }}
             </el-breadcrumb-item>
@@ -124,7 +126,10 @@ const toggleCollapse = () => {
           </el-badge>
           <el-dropdown>
             <span class="user-dropdown">
-              <el-avatar :size="32" :src="'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'" />
+              <el-avatar
+                :size="32"
+                :src="'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'"
+              />
               <span class="username">超级管理员</span>
             </span>
             <template #dropdown>

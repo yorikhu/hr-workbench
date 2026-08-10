@@ -18,20 +18,20 @@ const simpleRoutes: RouteRecordRaw[] = [
     path: '/',
     name: 'home',
     component: () => import('@/views/HomeView.vue'),
-    meta: { title: '首页', layout: 'simple' }
+    meta: { title: '首页', layout: 'simple' },
   },
   {
     path: '/about',
     name: 'about',
     component: () => import('@/views/AboutView.vue'),
-    meta: { title: '关于我们', layout: 'simple' }
+    meta: { title: '关于我们', layout: 'simple' },
   },
   {
     path: '/login',
     name: 'login',
     component: () => import('@/views/LoginView.vue'),
-    meta: { title: '登录', layout: 'simple' }
-  }
+    meta: { title: '登录', layout: 'simple' },
+  },
 ]
 
 // 主业务布局路由 - /dashboard、/employees、/documents
@@ -45,15 +45,15 @@ const mainRoutes: RouteRecordRaw = {
       path: 'overview',
       name: 'dashboard-overview',
       component: () => import('@/views/dashboard/OverviewView.vue'),
-      meta: { title: '控制台概览' }
+      meta: { title: '控制台概览' },
     },
     {
       path: 'analytics',
       name: 'dashboard-analytics',
       component: () => import('@/views/dashboard/AnalyticsView.vue'),
-      meta: { title: '数据分析' }
-    }
-  ]
+      meta: { title: '数据分析' },
+    },
+  ],
 }
 
 const employeesRoutes: RouteRecordRaw = {
@@ -66,21 +66,21 @@ const employeesRoutes: RouteRecordRaw = {
       path: 'list',
       name: 'employees-list',
       component: () => import('@/views/employees/EmployeeListView.vue'),
-      meta: { title: '员工列表' }
+      meta: { title: '员工列表' },
     },
     {
       path: 'departments',
       name: 'employees-departments',
       component: () => import('@/views/employees/DepartmentsView.vue'),
-      meta: { title: '部门管理' }
+      meta: { title: '部门管理' },
     },
     {
       path: 'positions',
       name: 'employees-positions',
       component: () => import('@/views/employees/PositionsView.vue'),
-      meta: { title: '职位管理' }
-    }
-  ]
+      meta: { title: '职位管理' },
+    },
+  ],
 }
 
 const documentsRoutes: RouteRecordRaw = {
@@ -93,15 +93,15 @@ const documentsRoutes: RouteRecordRaw = {
       path: 'policies',
       name: 'documents-policies',
       component: () => import('@/views/documents/PoliciesView.vue'),
-      meta: { title: '政策制度' }
+      meta: { title: '政策制度' },
     },
     {
       path: 'forms',
       name: 'documents-forms',
       component: () => import('@/views/documents/FormsView.vue'),
-      meta: { title: '表单下载' }
-    }
-  ]
+      meta: { title: '表单下载' },
+    },
+  ],
 }
 
 // 管理后台布局路由 - /admin/*
@@ -115,27 +115,27 @@ const adminRoutes: RouteRecordRaw = {
       path: 'users/list',
       name: 'admin-users-list',
       component: () => import('@/views/admin/UsersListView.vue'),
-      meta: { title: '用户列表' }
+      meta: { title: '用户列表' },
     },
     {
       path: 'users/roles',
       name: 'admin-users-roles',
       component: () => import('@/views/admin/RolesView.vue'),
-      meta: { title: '角色权限' }
+      meta: { title: '角色权限' },
     },
     {
       path: 'system/config',
       name: 'admin-system-config',
       component: () => import('@/views/admin/SystemConfigView.vue'),
-      meta: { title: '系统配置' }
+      meta: { title: '系统配置' },
     },
     {
       path: 'system/logs',
       name: 'admin-system-logs',
       component: () => import('@/views/admin/SystemLogsView.vue'),
-      meta: { title: '操作日志' }
-    }
-  ]
+      meta: { title: '操作日志' },
+    },
+  ],
 }
 
 // 合并所有路由
@@ -150,8 +150,8 @@ const routes: RouteRecordRaw[] = [
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('@/views/NotFoundView.vue'),
-    meta: { title: '页面不存在', layout: 'simple' }
-  }
+    meta: { title: '页面不存在', layout: 'simple' },
+  },
 ]
 
 const router = createRouter({

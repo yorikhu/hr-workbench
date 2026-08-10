@@ -8,7 +8,7 @@ import {
   Setting,
   Document,
   Fold,
-  Expand
+  Expand,
 } from '@element-plus/icons-vue'
 
 const router = useRouter()
@@ -22,8 +22,8 @@ const menuItems = ref([
     icon: Location,
     children: [
       { index: '/dashboard/overview', title: '概览' },
-      { index: '/dashboard/analytics', title: '数据分析' }
-    ]
+      { index: '/dashboard/analytics', title: '数据分析' },
+    ],
   },
   {
     index: '/employees',
@@ -32,8 +32,8 @@ const menuItems = ref([
     children: [
       { index: '/employees/list', title: '员工列表' },
       { index: '/employees/departments', title: '部门管理' },
-      { index: '/employees/positions', title: '职位管理' }
-    ]
+      { index: '/employees/positions', title: '职位管理' },
+    ],
   },
   {
     index: '/documents',
@@ -41,9 +41,9 @@ const menuItems = ref([
     icon: Document,
     children: [
       { index: '/documents/policies', title: '政策制度' },
-      { index: '/documents/forms', title: '表单下载' }
-    ]
-  }
+      { index: '/documents/forms', title: '表单下载' },
+    ],
+  },
 ])
 
 const handleMenuSelect = (index: string) => {
@@ -107,7 +107,10 @@ const toggleCollapse = () => {
         <div class="header-right">
           <el-dropdown>
             <span class="user-dropdown">
-              <el-avatar :size="32" :src="'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'" />
+              <el-avatar
+                :size="32"
+                :src="'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'"
+              />
               <span class="username">管理员</span>
             </span>
             <template #dropdown>
