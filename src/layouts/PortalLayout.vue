@@ -117,7 +117,7 @@ const handleModuleClick = (moduleRoute: string) => {
   z-index: 100;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0px 10px #dbdbdb;
 
   .header-content {
     padding: 0 24px;
@@ -411,7 +411,7 @@ const handleModuleClick = (moduleRoute: string) => {
 }
 
 .footer {
-  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0px 10px #dbdbdb;
   background: #fff;
   padding: 16px 24px;
   margin-top: auto;

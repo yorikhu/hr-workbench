@@ -61,12 +61,18 @@ export const todoItems = [
 
 // 常用服务
 export const serviceItems = [
-  { name: '请假', icon: 'Calendar', route: '/leave', color: 'from-blue-500 to-blue-600' },
-  { name: '考勤', icon: 'Clock', route: '/attendance', color: 'from-amber-500 to-orange-500' },
-  { name: '工资条', icon: 'Wallet', route: '/salary', color: 'from-emerald-500 to-teal-500' },
-  { name: '审批', icon: 'Select', route: '/approval', color: 'from-indigo-500 to-violet-500' },
-  { name: '年假', icon: 'Sunny', route: '/annual', color: 'from-cyan-500 to-sky-500' },
-  { name: '目标', icon: 'Aim', route: '/target', color: 'from-pink-500 to-rose-500' },
+  { name: '请假', icon: 'Calendar', route: '/leave', color: 'from-blue-500 to-blue-600', desc: '申请休假' },
+  { name: '考勤', icon: 'Clock', route: '/attendance', color: 'from-amber-500 to-orange-500', desc: '打卡记录' },
+  { name: '工资条', icon: 'Wallet', route: '/salary', color: 'from-emerald-500 to-teal-500', desc: '薪资查询' },
+  { name: '审批', icon: 'Select', route: '/approval', color: 'from-indigo-500 to-violet-500', desc: '流程审批' },
+  { name: '年假', icon: 'Sunny', route: '/annual', color: 'from-cyan-500 to-sky-500', desc: '假期余额' },
+  { name: '目标', icon: 'Aim', route: '/target', color: 'from-pink-500 to-rose-500', desc: '绩效目标' },
+  { name: '报销', icon: 'Wallet', route: '/reimburse', color: 'from-violet-500 to-purple-500', desc: '费用报销' },
+  { name: '出差', icon: 'Clock', route: '/trip', color: 'from-blue-500 to-indigo-500', desc: '差旅申请' },
+  { name: '培训', icon: 'Reading', route: '/training', color: 'from-teal-500 to-emerald-500', desc: '学习发展' },
+  { name: '档案', icon: 'Document', route: '/profile', color: 'from-orange-500 to-amber-500', desc: '个人档案' },
+  { name: '招聘', icon: 'ChatDotRound', route: '/recruitment', color: 'from-sky-500 to-blue-500', desc: '人才招聘' },
+  { name: '报表', icon: 'DataLine', route: '/reports', color: 'from-rose-500 to-pink-500', desc: '数据报表' },
 ]
 
 // 异动记录

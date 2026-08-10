@@ -1,6 +1,19 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
+import {
+  ArrowRightBold,
+  Calendar,
+  Clock,
+  Wallet,
+  Select,
+  Sunny,
+  Aim,
+  Reading,
+  Document,
+  ChatDotRound,
+  DataLine,
+} from '@element-plus/icons-vue'
 import * as echarts from 'echarts'
 import type { EChartsOption } from 'echarts'
 import {
@@ -15,6 +28,21 @@ import {
   quickActions,
 } from '@/mock/portalData'
 import AppIcon from '@/components/icons/AppIcon.vue'
+import AppCard from '@/components/Card.vue'
+import AppTable from '@/components/Table.vue'
+
+const iconMap: any = {
+  Calendar,
+  Clock,
+  Wallet,
+  Select,
+  Sunny,
+  Aim,
+  Reading,
+  Document,
+  ChatDotRound,
+  DataLine,
+}
 
 const router = useRouter()
 const trendChartRef = ref<HTMLElement>()
@@ -31,7 +59,7 @@ const handleServiceClick = (route: string) => {
 }
 
 const handleTodoClick = () => {
-  console.log('Handle todo')
+  // TODO: Handle todo click
 }
 
 // 初始化趋势图表
@@ -190,11 +218,13 @@ onUnmounted(() => {
       </div>
 
       <!-- 快捷报表卡片 -->
-      <div class="report-card">
-        <div class="report-header">
-          <p class="report-title">快捷报表</p>
-          <span class="report-tag">实时</span>
-        </div>
+      <AppCard class="report-card">
+        <template #header>
+          <div class="report-header">
+            <p class="report-title">快捷报表</p>
+            <span class="report-tag">实时</span>
+          </div>
+        </template>
         <div class="report-content">
           <div class="report-item">
             <div class="report-info">
@@ -221,13 +251,16 @@ onUnmounted(() => {
             </div>
           </div>
         </div>
-        <el-button link class="view-all-btn">查看全部报表 →</el-button>
-      </div>
+        <el-button link class="view-all-btn">
+          查看全部报表
+          <el-icon class="el-icon--right"><ArrowRightBold /></el-icon>
+        </el-button>
+      </AppCard>
     </section>
 
     <!-- KPI 指标卡 -->
     <section class="kpi-section">
-      <div
+      <AppCard
         v-for="item in [
           'activeEmployees',
           'newHires',
@@ -289,28 +322,34 @@ onUnmounted(() => {
             }[item]
           }}
         </p>
-      </div>
+      </AppCard>
     </section>
 
     <!-- 数据图表区 -->
     <section class="chart-section">
-      <div class="chart-card large">
-        <div class="chart-header">
-          <div>
-            <h3>员工人数趋势</h3>
-            <p>近 12 个月在职人数变化</p>
+      <AppCard class="chart-card large">
+        <template #header>
+          <div class="chart-header">
+            <div>
+              <h3>员工人数趋势</h3>
+              <p>近 12 个月在职人数变化</p>
+            </div>
+            <div class="chart-legend">
+              <span class="legend-item blue">在职</span>
+              <span class="legend-item green">入职</span>
+            </div>
           </div>
-          <div class="chart-legend">
-            <span class="legend-item blue">在职</span>
-            <span class="legend-item green">入职</span>
-          </div>
-        </div>
+        </template>
         <div ref="trendChartRef" class="chart-container"></div>
-      </div>
+      </AppCard>
 
-      <div class="chart-card">
-        <h3>部门人数占比</h3>
-        <p>当前员工分布</p>
+      <AppCard class="chart-card">
+        <template #header>
+          <div class="chart-header">
+            <h3>部门人数占比</h3>
+            <p>当前员工分布</p>
+          </div>
+        </template>
         <div ref="deptChartRef" class="chart-container small"></div>
         <div class="dept-legend">
           <div v-for="dept in deptData" :key="dept.name" class="dept-item">
@@ -319,19 +358,21 @@ onUnmounted(() => {
             <span class="dept-value">{{ dept.value }} 人</span>
           </div>
         </div>
-      </div>
+      </AppCard>
     </section>
 
     <!-- 待办 + 常用服务 -->
     <section class="bottom-section">
-      <div class="todo-card">
-        <div class="card-header">
-          <h3>待办事项</h3>
-          <span class="todo-count">今日 {{ todoItems.length }} 条</span>
-        </div>
+      <AppCard class="todo-card">
+        <template #header>
+          <div class="card-header">
+            <h3>待办事项</h3>
+            <span class="todo-count">今日 {{ todoItems.length }} 条</span>
+          </div>
+        </template>
         <div class="todo-list">
           <div
-            v-for="todo in todoItems"
+            v-for="todo in todoItems.slice(0, 3)"
             :key="todo.id"
             class="todo-item"
             :class="'todo-' + todo.type"
@@ -346,27 +387,36 @@ onUnmounted(() => {
             >
           </div>
         </div>
-        <el-button link class="view-all-btn">查看全部 →</el-button>
-      </div>
+        <el-button link class="view-all-btn">
+          查看全部
+          <el-icon class="el-icon--right"><ArrowRightBold /></el-icon>
+        </el-button>
+      </AppCard>
 
       <!-- 常用服务 -->
-      <div class="service-card">
-        <h3>常用服务</h3>
+      <AppCard class="service-card">
+        <template #header>
+          <h3>常用服务</h3>
+        </template>
         <div class="service-grid">
           <button
             v-for="service in serviceItems"
             :key="service.name"
             class="service-item"
-            :class="service.color"
             @click="handleServiceClick(service.route)"
           >
-            <span class="service-icon">
-              <AppIcon :name="service.icon as any" />
+            <span class="service-icon" :class="service.color">
+              <el-icon :size="16">
+                <component :is="iconMap[service.icon]" />
+              </el-icon>
             </span>
-            <span class="service-name">{{ service.name }}</span>
+            <div class="service-info">
+              <span class="service-name">{{ service.name }}</span>
+              <span class="service-desc">{{ service.desc }}</span>
+            </div>
           </button>
         </div>
-        <el-divider style="margin: 16px 0" />
+        <el-divider class="flex-divider" />
         <div class="progress-info">
           <div class="progress-text">
             <p>本月招聘进度</p>
@@ -383,26 +433,31 @@ onUnmounted(() => {
             :style="{ width: recruitmentProgress.rate + '%' }"
           ></div>
         </div>
-      </div>
+      </AppCard>
     </section>
 
     <!-- 异动记录表 -->
-    <section class="table-section">
-      <div class="table-header">
-        <div>
-          <h3>近期异动记录</h3>
-          <p>入职、离职、调岗、转正等最新动态</p>
+    <AppCard>
+      <template #header>
+        <div class="table-header">
+          <div>
+            <h3>近期异动记录</h3>
+            <p>入职、离职、调岗、转正等最新动态</p>
+          </div>
+          <el-button link class="view-all-btn">
+            全部异动
+            <el-icon class="el-icon--right"><ArrowRightBold /></el-icon>
+          </el-button>
         </div>
-        <el-button link>全部异动 →</el-button>
-      </div>
-      <el-table :data="changeRecords" class="change-table">
-        <el-table-column prop="name" label="员工" width="120">
+      </template>
+      <AppTable :data="changeRecords">
+        <el-table-column prop="name" label="员工">
           <template #default="{ row }">
             <span class="table-name">{{ row.name }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="dept" label="部门" />
-        <el-table-column prop="type" label="异动类型" width="100">
+        <el-table-column prop="type" label="异动类型">
           <template #default="{ row }">
             <el-tag
               :type="
@@ -411,7 +466,7 @@ onUnmounted(() => {
                   转正: 'primary',
                   调岗: 'info',
                   离职: 'warning',
-                }[row.type] as any
+                }[row.type as '入职' | '转正' | '调岗' | '离职']
               "
               size="small"
             >
@@ -419,16 +474,16 @@ onUnmounted(() => {
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="date" label="生效日期" width="120" />
-        <el-table-column prop="status" label="审批状态" width="100">
+        <el-table-column prop="date" label="生效日期" />
+        <el-table-column prop="status" label="审批状态">
           <template #default="{ row }">
             <span :class="{ 'status-done': row.status === '已完成' }">
               {{ row.status }}
             </span>
           </template>
         </el-table-column>
-      </el-table>
-    </section>
+      </AppTable>
+    </AppCard>
   </div>
 </template>
 
@@ -437,6 +492,21 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  // Cards with flex column layout
+  .report-card,
+  .todo-card,
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    :deep(.el-card__body) {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }
 
 .hero-section {
@@ -512,19 +582,13 @@ onUnmounted(() => {
 }
 
 .report-card {
-  background: #fff;
-  border-radius: 16px;
-  border: 1px solid #e5e7eb;
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   .report-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
 
     .report-title {
       font-size: 14px;
@@ -600,10 +664,15 @@ onUnmounted(() => {
   }
 
   .view-all-btn {
-    margin-top: 16px;
+    margin-top: 24px;
+    align-self: flex-end;
     font-size: 13px;
     color: #3b82f6;
     padding: 0;
+
+    .el-icon {
+      font-size: 12px;
+    }
   }
 }
 
@@ -617,7 +686,6 @@ onUnmounted(() => {
   background: #fff;
   border-radius: 16px;
   border: 1px solid #e5e7eb;
-  padding: 20px;
   transition: all 0.25s;
 
   &:hover {
@@ -695,7 +763,6 @@ onUnmounted(() => {
   background: #fff;
   border-radius: 16px;
   border: 1px solid #e5e7eb;
-  padding: 20px;
 
   &.large {
     min-height: 280px;
@@ -705,7 +772,6 @@ onUnmounted(() => {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 16px;
 
     h3 {
       font-size: 16px;
@@ -787,14 +853,13 @@ onUnmounted(() => {
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 24px;
+  align-items: stretch;
 }
 
 .todo-card,
 .service-card {
-  background: #fff;
-  border-radius: 16px;
-  border: 1px solid #e5e7eb;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .todo-card {
@@ -802,7 +867,6 @@ onUnmounted(() => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
 
     h3 {
       font-size: 16px;
@@ -851,18 +915,19 @@ onUnmounted(() => {
       border-radius: 50%;
       margin-top: 6px;
       flex-shrink: 0;
+      background: #cbd5e1;
+    }
 
-      .todo-warning & {
-        background: #f59e0b;
-      }
+    &.todo-warning .todo-dot {
+      background: #f59e0b;
+    }
 
-      .todo-info & {
-        background: #3b82f6;
-      }
+    &.todo-info .todo-dot {
+      background: #3b82f6;
+    }
 
-      .todo-primary & {
-        background: #6366f1;
-      }
+    &.todo-primary .todo-dot {
+      background: #6366f1;
     }
 
     .todo-content {
@@ -889,6 +954,18 @@ onUnmounted(() => {
       flex-shrink: 0;
     }
   }
+
+  .view-all-btn {
+    margin-top: 24px;
+    align-self: flex-end;
+    font-size: 13px;
+    color: #3b82f6;
+    padding: 0;
+
+    .el-icon {
+      font-size: 12px;
+    }
+  }
 }
 
 .service-card {
@@ -896,7 +973,7 @@ onUnmounted(() => {
     font-size: 16px;
     font-weight: 600;
     color: #1f2937;
-    margin: 0 0 16px;
+    margin: 0;
   }
 
   .service-grid {
@@ -910,7 +987,7 @@ onUnmounted(() => {
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    padding: 12px;
+    padding: 12px 8px;
     border-radius: 12px;
     border: none;
     background: transparent;
@@ -920,6 +997,14 @@ onUnmounted(() => {
     &:hover {
       background: #f9fafb;
       transform: translateY(-3px);
+    }
+
+    .service-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      text-align: center;
     }
 
     .service-icon {
@@ -953,12 +1038,42 @@ onUnmounted(() => {
       &.from-pink-500.to-rose-500 {
         background: linear-gradient(135deg, #ec4899, #f43f5e);
       }
+      &.from-violet-500.to-purple-500 {
+        background: linear-gradient(135deg, #8b5cf6, #a855f7);
+      }
+      &.from-blue-500.to-indigo-500 {
+        background: linear-gradient(135deg, #3b82f6, #6366f1);
+      }
+      &.from-teal-500.to-emerald-500 {
+        background: linear-gradient(135deg, #14b8a6, #10b981);
+      }
+      &.from-orange-500.to-amber-500 {
+        background: linear-gradient(135deg, #f97316, #f59e0b);
+      }
+      &.from-sky-500.to-blue-500 {
+        background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+      }
+      &.from-rose-500.to-pink-500 {
+        background: linear-gradient(135deg, #f43f5e, #ec4899);
+      }
     }
 
     .service-name {
       font-size: 12px;
-      color: #6b7280;
+      font-weight: 500;
+      color: #374151;
     }
+
+    .service-desc {
+      font-size: 10px;
+      color: #9ca3af;
+    }
+  }
+
+  .flex-divider {
+    flex-grow: 1;
+    margin: 16px 0;
+    border-color: #f3f4f6;
   }
 
   .progress-info {
@@ -992,61 +1107,43 @@ onUnmounted(() => {
   }
 }
 
-.table-section {
-  background: #fff;
-  border-radius: 16px;
-  border: 1px solid #e5e7eb;
-  overflow: hidden;
+// Table header styles (used in template)
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  .table-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid #f3f4f6;
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+  }
 
-    h3 {
-      font-size: 16px;
-      font-weight: 600;
-      color: #1f2937;
-      margin: 0;
-    }
+  p {
+    font-size: 12px;
+    color: #9ca3af;
+    margin: 4px 0 0 0;
+  }
 
-    p {
+  .view-all-btn {
+    font-size: 13px;
+    color: #3b82f6;
+    padding: 0;
+
+    .el-icon {
       font-size: 12px;
-      color: #9ca3af;
-      margin: 4px 0 0 0;
     }
   }
+}
 
-  .change-table {
-    :deep(.el-table__header-wrapper) {
-      th {
-        background: #f9fafb;
-        font-size: 12px;
-        color: #6b7280;
-        font-weight: 500;
-      }
-    }
+// Table cell styles
+.table-name {
+  font-weight: 500;
+  color: #374151;
+}
 
-    :deep(.el-table__body-wrapper) {
-      td {
-        font-size: 13px;
-      }
-
-      tr:hover {
-        background: #f9fafb;
-      }
-    }
-
-    .table-name {
-      font-weight: 500;
-      color: #374151;
-    }
-
-    .status-done {
-      color: #6b7280;
-    }
-  }
+.status-done {
+  color: #6b7280;
 }
 </style>
