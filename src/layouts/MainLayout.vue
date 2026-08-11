@@ -1,241 +1,303 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import {
-  Location,
-  Menu,
-  User,
-  Setting,
-  Document,
-  Fold,
-  Expand,
-} from '@element-plus/icons-vue'
+import { computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { ArrowLeft } from '@element-plus/icons-vue'
+import AppIcon from '@/components/icons/AppIcon.vue'
+import { getCurrentSystemInfo } from '@/mock/mainMenuData'
+import { userInfo } from '@/mock/portalData'
 
 const router = useRouter()
-const isCollapse = ref(false)
+const route = useRoute()
 
-// 主业务菜单
-const menuItems = ref([
-  {
-    index: '/dashboard',
-    title: '控制台',
-    icon: Location,
-    children: [
-      { index: '/dashboard/overview', title: '概览' },
-      { index: '/dashboard/analytics', title: '数据分析' },
-    ],
-  },
-  {
-    index: '/employees',
-    title: '员工管理',
-    icon: User,
-    children: [
-      { index: '/employees/list', title: '员工列表' },
-      { index: '/employees/departments', title: '部门管理' },
-      { index: '/employees/positions', title: '职位管理' },
-    ],
-  },
-  {
-    index: '/documents',
-    title: '文档中心',
-    icon: Document,
-    children: [
-      { index: '/documents/policies', title: '政策制度' },
-      { index: '/documents/forms', title: '表单下载' },
-    ],
-  },
-])
+// 获取当前系统信息
+const currentSystem = computed(() => getCurrentSystemInfo(route.path))
 
-const handleMenuSelect = (index: string) => {
-  router.push(index)
+// 菜单项
+const menuItems = computed(() => currentSystem.value?.menuItems || [])
+
+// 返回门户
+const handleBackToPortal = () => {
+  router.push('/')
 }
 
-const toggleCollapse = () => {
-  isCollapse.value = !isCollapse.value
+// 菜单点击
+const handleMenuClick = (index: string) => {
+  if (index !== route.path) {
+    router.push(index)
+  }
 }
 </script>
 
 <template>
-  <el-container class="main-layout">
-    <el-aside :width="isCollapse ? '64px' : '200px'" class="sidebar">
-      <div class="logo-section">
-        <h2 v-if="!isCollapse">HR Workbench</h2>
-        <h2 v-else>HR</h2>
-      </div>
-      <el-menu
-        :default-active="$route.path"
-        :collapse="isCollapse"
-        :collapse-transition="false"
-        @select="handleMenuSelect"
-      >
-        <template v-for="item in menuItems" :key="item.index">
-          <el-sub-menu v-if="item.children" :index="item.index">
-            <template #title>
-              <el-icon><component :is="item.icon" /></el-icon>
-              <span>{{ item.title }}</span>
-            </template>
-            <el-menu-item
-              v-for="child in item.children"
-              :key="child.index"
-              :index="child.index"
-            >
-              {{ child.title }}
-            </el-menu-item>
-          </el-sub-menu>
-          <el-menu-item v-else :index="item.index">
-            <el-icon><component :is="item.icon" /></el-icon>
-            <template #title>{{ item.title }}</template>
-          </el-menu-item>
-        </template>
-      </el-menu>
-    </el-aside>
-
-    <el-container>
-      <el-header class="header">
+  <div class="system-layout">
+    <!-- 顶部导航栏 -->
+    <header class="header">
+      <div class="header-content">
         <div class="header-left">
-          <el-icon class="collapse-icon" @click="toggleCollapse">
-            <Fold v-if="!isCollapse" />
-            <Expand v-else />
-          </el-icon>
-          <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item v-if="$route.meta.title">
-              {{ $route.meta.title }}
-            </el-breadcrumb-item>
-          </el-breadcrumb>
+          <el-tooltip content="返回门户" placement="bottom">
+            <button class="back-btn" @click="handleBackToPortal">
+              <el-icon><ArrowLeft /></el-icon>
+            </button>
+          </el-tooltip>
+          <div v-if="currentSystem" class="system-info">
+            <div class="icon-badge" :class="currentSystem.color">
+              <AppIcon :name="currentSystem.icon" />
+            </div>
+            <h1>{{ currentSystem.name }}</h1>
+          </div>
         </div>
         <div class="header-right">
-          <el-dropdown>
-            <span class="user-dropdown">
-              <el-avatar
-                :size="32"
-                :src="'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'"
-              />
-              <span class="username">管理员</span>
-            </span>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item>
-                  <el-icon><User /></el-icon>
-                  个人中心
-                </el-dropdown-item>
-                <el-dropdown-item>
-                  <el-icon><Setting /></el-icon>
-                  设置
-                </el-dropdown-item>
-                <el-dropdown-item divided>退出登录</el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
+          <div class="user-info">
+            <div class="avatar">{{ userInfo.avatar }}</div>
+            <div class="user-detail">
+              <p class="name">{{ userInfo.name }}</p>
+              <p class="role">{{ userInfo.role }}</p>
+            </div>
+          </div>
         </div>
-      </el-header>
+      </div>
+    </header>
 
-      <el-main class="main-content">
+    <div class="layout-body">
+      <!-- 左侧菜单 -->
+      <aside class="sidebar">
+        <div class="sidebar-content">
+          <nav class="menu-nav">
+            <button
+              v-for="item in menuItems"
+              :key="item.index"
+              :class="['menu-item', { active: route.path === item.index }]"
+              @click="handleMenuClick(item.index)"
+            >
+              <AppIcon :name="item.icon" />
+              <span>{{ item.title }}</span>
+            </button>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- 主内容区 -->
+      <main class="main-content">
         <RouterView />
-      </el-main>
-    </el-container>
-  </el-container>
+      </main>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.main-layout {
-  height: 100vh;
+.system-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f7fa;
+}
 
-  .sidebar {
-    background: #001529;
-    transition: width 0.3s;
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    z-index: 100;
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0px 10px #dbdbdb;
 
-    :deep(.el-menu) {
-      border-right: none;
-      background: #001529;
-    }
-
-    :deep(.el-menu-item),
-    :deep(.el-sub-menu__title) {
-      color: rgba(255, 255, 255, 0.65);
-
-      &:hover {
-        background: #1890ff !important;
-        color: #fff;
-      }
-    }
-
-    :deep(.el-menu-item.is-active) {
-      background: #1890ff !important;
-      color: #fff;
-    }
-
-    .logo-section {
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-  }
-
-  .header {
+  .header-content {
+    padding: 0 24px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #fff;
-    border-bottom: 1px solid #f0f0f0;
-    padding: 0 20px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+  }
 
-    .header-left {
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .back-btn {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: #6b7280;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
 
-      .collapse-icon {
-        font-size: 20px;
-        cursor: pointer;
-        color: #666;
+      &:hover {
+        background: #f3f4f6;
+        color: #374151;
+      }
 
-        &:hover {
-          color: #1890ff;
-        }
+      .el-icon {
+        font-size: 16px;
       }
     }
 
-    .header-right {
-      .user-dropdown {
+    .system-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .icon-badge {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
-        gap: 8px;
-        cursor: pointer;
+        justify-content: center;
 
-        .username {
-          color: #333;
+        &.from-blue-500.to-blue-600 {
+          background: linear-gradient(135deg, #3b82f6, #2563eb);
         }
+        &.from-sky-500.to-cyan-500 {
+          background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+        }
+        &.from-pink-500.to-rose-500 {
+          background: linear-gradient(135deg, #ec4899, #f43f5e);
+        }
+        &.from-indigo-500.to-violet-500 {
+          background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        }
+        &.from-emerald-500.to-teal-500 {
+          background: linear-gradient(135deg, #10b981, #14b8a6);
+        }
+        &.from-amber-500.to-orange-500 {
+          background: linear-gradient(135deg, #f59e0b, #f97316);
+        }
+        &.from-purple-500.to-fuchsia-500 {
+          background: linear-gradient(135deg, #a855f7, #d946ef);
+        }
+        &.from-red-500.to-orange-500 {
+          background: linear-gradient(135deg, #ef4444, #f97316);
+        }
+        &.from-blue-500.to-indigo-500 {
+          background: linear-gradient(135deg, #3b82f6, #6366f1);
+        }
+
+        :deep(.el-icon) {
+          color: #fff;
+        }
+      }
+
+      h1 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1f2937;
+        margin: 0;
+        line-height: 1.2;
       }
     }
   }
 
-  .main-content {
-    background: #f0f2f5;
-    padding: 20px;
-    overflow-y: auto;
-  }
+  .header-right {
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
 
-  // 给右侧内容区域添加左边距，避免被固定的侧边栏遮挡
-  :deep(.el-container) {
-    &:not(.main-layout) {
-      margin-left: 200px;
-      transition: margin-left 0.3s;
+      .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3b82f6, #6366f1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .user-detail {
+        .name {
+          font-size: 14px;
+          font-weight: 500;
+          color: #374151;
+          margin: 0;
+          line-height: 1.2;
+        }
+
+        .role {
+          font-size: 12px;
+          color: #9ca3af;
+          margin: 0;
+          margin-top: 2px;
+        }
+      }
     }
   }
+}
+
+.layout-body {
+  flex: 1;
+  width: 100%;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 88px;
+  height: fit-content;
+  max-height: calc(100vh - 112px);
+  overflow-y: auto;
+
+  .sidebar-content {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+
+    &:hover {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    &.active {
+      background: #eff6ff;
+      color: #3b82f6;
+      font-weight: 500;
+
+      :deep(.el-icon) {
+        color: #3b82f6;
+      }
+    }
+
+    :deep(.el-icon) {
+      font-size: 18px;
+      color: #6b7280;
+    }
+  }
+}
+
+.main-content {
+  min-width: 0;
 }
 </style>

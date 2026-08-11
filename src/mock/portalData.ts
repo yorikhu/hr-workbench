@@ -20,8 +20,23 @@ export const userInfo = {
 
 // 图表数据 - 员工人数趋势
 export const trendChartData = {
-  labels: ['9月', '10月', '11月', '12月', '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月'],
-  active: [1150, 1180, 1210, 1190, 1235, 1250, 1270, 1260, 1280, 1275, 1290, 1284],
+  labels: [
+    '9月',
+    '10月',
+    '11月',
+    '12月',
+    '1月',
+    '2月',
+    '3月',
+    '4月',
+    '5月',
+    '6月',
+    '7月',
+    '8月',
+  ],
+  active: [
+    1150, 1180, 1210, 1190, 1235, 1250, 1270, 1260, 1280, 1275, 1290, 1284,
+  ],
   hires: [18, 22, 26, 14, 30, 24, 28, 18, 32, 20, 26, 36],
 }
 
@@ -61,38 +76,178 @@ export const todoItems = [
 
 // 常用服务
 export const serviceItems = [
-  { name: '请假', icon: 'Calendar', route: '/leave', color: 'from-blue-500 to-blue-600', desc: '申请休假' },
-  { name: '考勤', icon: 'Clock', route: '/attendance', color: 'from-amber-500 to-orange-500', desc: '打卡记录' },
-  { name: '工资条', icon: 'Wallet', route: '/salary', color: 'from-emerald-500 to-teal-500', desc: '薪资查询' },
-  { name: '审批', icon: 'Select', route: '/approval', color: 'from-indigo-500 to-violet-500', desc: '流程审批' },
-  { name: '年假', icon: 'Sunny', route: '/annual', color: 'from-cyan-500 to-sky-500', desc: '假期余额' },
-  { name: '目标', icon: 'Aim', route: '/target', color: 'from-pink-500 to-rose-500', desc: '绩效目标' },
-  { name: '报销', icon: 'Wallet', route: '/reimburse', color: 'from-violet-500 to-purple-500', desc: '费用报销' },
-  { name: '出差', icon: 'Clock', route: '/trip', color: 'from-blue-500 to-indigo-500', desc: '差旅申请' },
-  { name: '培训', icon: 'Reading', route: '/training', color: 'from-teal-500 to-emerald-500', desc: '学习发展' },
-  { name: '档案', icon: 'Document', route: '/profile', color: 'from-orange-500 to-amber-500', desc: '个人档案' },
-  { name: '招聘', icon: 'ChatDotRound', route: '/recruitment', color: 'from-sky-500 to-blue-500', desc: '人才招聘' },
-  { name: '报表', icon: 'DataLine', route: '/reports', color: 'from-rose-500 to-pink-500', desc: '数据报表' },
+  {
+    name: '请假',
+    icon: 'Calendar',
+    route: '/leave',
+    color: 'from-blue-500 to-blue-600',
+    desc: '申请休假',
+  },
+  {
+    name: '考勤',
+    icon: 'Clock',
+    route: '/attendance',
+    color: 'from-amber-500 to-orange-500',
+    desc: '打卡记录',
+  },
+  {
+    name: '工资条',
+    icon: 'Wallet',
+    route: '/salary',
+    color: 'from-emerald-500 to-teal-500',
+    desc: '薪资查询',
+  },
+  {
+    name: '审批',
+    icon: 'Select',
+    route: '/approval',
+    color: 'from-indigo-500 to-violet-500',
+    desc: '流程审批',
+  },
+  {
+    name: '年假',
+    icon: 'Sunny',
+    route: '/annual',
+    color: 'from-cyan-500 to-sky-500',
+    desc: '假期余额',
+  },
+  {
+    name: '目标',
+    icon: 'Aim',
+    route: '/target',
+    color: 'from-pink-500 to-rose-500',
+    desc: '绩效目标',
+  },
+  {
+    name: '报销',
+    icon: 'Wallet',
+    route: '/reimburse',
+    color: 'from-violet-500 to-purple-500',
+    desc: '费用报销',
+  },
+  {
+    name: '出差',
+    icon: 'Clock',
+    route: '/trip',
+    color: 'from-blue-500 to-indigo-500',
+    desc: '差旅申请',
+  },
+  {
+    name: '培训',
+    icon: 'Reading',
+    route: '/training',
+    color: 'from-teal-500 to-emerald-500',
+    desc: '学习发展',
+  },
+  {
+    name: '档案',
+    icon: 'Document',
+    route: '/profile',
+    color: 'from-orange-500 to-amber-500',
+    desc: '个人档案',
+  },
+  {
+    name: '招聘',
+    icon: 'ChatDotRound',
+    route: '/recruitment',
+    color: 'from-sky-500 to-blue-500',
+    desc: '人才招聘',
+  },
+  {
+    name: '报表',
+    icon: 'DataLine',
+    route: '/reports',
+    color: 'from-rose-500 to-pink-500',
+    desc: '数据报表',
+  },
 ]
 
 // 异动记录
 export const changeRecords = [
-  { id: 1, name: '李芳', dept: '技术研发部', type: '入职', date: '2026-08-03', status: '已完成' },
-  { id: 2, name: '王强', dept: '市场运营部', type: '转正', date: '2026-08-01', status: '已完成' },
-  { id: 3, name: '赵磊', dept: '财务部', type: '调岗', date: '2026-07-28', status: '已完成' },
-  { id: 4, name: '孙悦', dept: '人力资源部', type: '离职', date: '2026-07-25', status: '审批中' },
+  {
+    id: 1,
+    name: '李芳',
+    dept: '技术研发部',
+    type: '入职',
+    date: '2026-08-03',
+    status: '已完成',
+  },
+  {
+    id: 2,
+    name: '王强',
+    dept: '市场运营部',
+    type: '转正',
+    date: '2026-08-01',
+    status: '已完成',
+  },
+  {
+    id: 3,
+    name: '赵磊',
+    dept: '财务部',
+    type: '调岗',
+    date: '2026-07-28',
+    status: '已完成',
+  },
+  {
+    id: 4,
+    name: '孙悦',
+    dept: '人力资源部',
+    type: '离职',
+    date: '2026-07-25',
+    status: '审批中',
+  },
 ]
 
 // 侧边栏模块配置
 export const portalModules = [
-  { name: '人事管理', icon: 'User', route: '/employees', color: 'from-blue-500 to-blue-600' },
-  { name: '异动管理', icon: 'Sort', route: '/transfers', color: 'from-sky-500 to-cyan-500' },
-  { name: '福利管理', icon: 'Present', route: '/benefits', color: 'from-pink-500 to-rose-500' },
-  { name: '薪酬核算', icon: 'Coin', route: '/salary', color: 'from-indigo-500 to-violet-500' },
-  { name: '招聘管理', icon: 'ChatDotRound', route: '/recruitment', color: 'from-emerald-500 to-teal-500' },
-  { name: '考勤管理', icon: 'Clock', route: '/attendance', color: 'from-amber-500 to-orange-500' },
-  { name: '绩效人才', icon: 'Trophy', route: '/performance', color: 'from-purple-500 to-fuchsia-500' },
-  { name: '培训发展', icon: 'Reading', route: '/training', color: 'from-red-500 to-orange-500' },
+  {
+    name: '人事管理',
+    icon: 'User',
+    route: '/employees',
+    color: 'from-blue-500 to-blue-600',
+  },
+  {
+    name: '异动管理',
+    icon: 'Sort',
+    route: '/transfers',
+    color: 'from-sky-500 to-cyan-500',
+  },
+  {
+    name: '福利管理',
+    icon: 'Present',
+    route: '/benefits',
+    color: 'from-pink-500 to-rose-500',
+  },
+  {
+    name: '薪酬核算',
+    icon: 'Coin',
+    route: '/salary',
+    color: 'from-indigo-500 to-violet-500',
+  },
+  {
+    name: '招聘管理',
+    icon: 'ChatDotRound',
+    route: '/recruitment',
+    color: 'from-emerald-500 to-teal-500',
+  },
+  {
+    name: '考勤管理',
+    icon: 'Clock',
+    route: '/attendance',
+    color: 'from-amber-500 to-orange-500',
+  },
+  {
+    name: '绩效人才',
+    icon: 'Trophy',
+    route: '/performance',
+    color: 'from-purple-500 to-fuchsia-500',
+  },
+  {
+    name: '培训发展',
+    icon: 'Reading',
+    route: '/training',
+    color: 'from-red-500 to-orange-500',
+  },
 ]
 
 // 招聘进度
