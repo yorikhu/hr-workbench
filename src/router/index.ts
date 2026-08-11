@@ -46,7 +46,7 @@ const portalRoutes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'portal',
-    component: () => import('@/views/HomeView.vue'),
+    component: () => import('@/views/home/HomeView.vue'),
     meta: { title: 'HR 工作台', layout: 'portal' },
   },
 ]

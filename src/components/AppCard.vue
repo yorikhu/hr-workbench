@@ -11,7 +11,9 @@ const props = withDefaults(defineProps<Props>(), {
   shadow: 'never',
 })
 
-const cardClass = computed(() => `app-card ${props.shadow ? 'is-' + props.shadow : ''}`)
+const cardClass = computed(
+  () => `app-card ${props.shadow ? 'is-' + props.shadow : ''}`,
+)
 </script>
 
 <template>

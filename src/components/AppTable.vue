@@ -15,7 +15,7 @@ interface Props {
   sumText?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   border: false,
   stripe: false,
   size: 'default',
