@@ -30,13 +30,13 @@ const simpleRoutes: RouteRecordRaw[] = [
   {
     path: '/about',
     name: 'about',
-    component: () => import('@/views/AboutView.vue'),
+    component: () => import('@/views/common/about/AboutView.vue'),
     meta: { title: '关于我们', layout: 'simple' },
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/LoginView.vue'),
+    component: () => import('@/views/common/login/LoginView.vue'),
     meta: { title: '登录', layout: 'simple' },
   },
 ]
@@ -72,7 +72,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
-    component: () => import('@/views/NotFoundView.vue'),
+    component: () => import('@/views/common/not-found/NotFoundView.vue'),
     meta: { title: '页面不存在', layout: 'simple' },
   },
 ]
